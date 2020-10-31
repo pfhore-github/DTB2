@@ -1,0 +1,451 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AE16C0230E760F4800710B6E /* atque.icns in Resources */ = {isa = PBXBuildFile; fileRef = AE16C0220E760F4800710B6E /* atque.icns */; };
+		AE175F470E74BAAA005BE1E9 /* atque.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE175F360E74BAAA005BE1E9 /* atque.cpp */; };
+		AE175F480E74BAAA005BE1E9 /* CLUTResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE175F380E74BAAA005BE1E9 /* CLUTResource.cpp */; };
+		AE175F490E74BAAA005BE1E9 /* EasyBMP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE175F3A0E74BAAA005BE1E9 /* EasyBMP.cpp */; };
+		AE175F4A0E74BAAA005BE1E9 /* merge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE175F3F0E74BAAA005BE1E9 /* merge.cpp */; };
+		AE175F4B0E74BAAA005BE1E9 /* PICTResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE175F410E74BAAA005BE1E9 /* PICTResource.cpp */; };
+		AE175F4C0E74BAAA005BE1E9 /* SndResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE175F430E74BAAA005BE1E9 /* SndResource.cpp */; };
+		AE175F4D0E74BAAA005BE1E9 /* split.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE175F450E74BAAA005BE1E9 /* split.cpp */; };
+		AE789D7A1539FF320044022B /* AStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE789D691539FF320044022B /* AStream.cpp */; };
+		AE789D7B1539FF320044022B /* macroman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE789D6C1539FF320044022B /* macroman.cpp */; };
+		AE789D7C1539FF320044022B /* MapInfoChunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE789D6E1539FF320044022B /* MapInfoChunk.cpp */; };
+		AE789D7D1539FF320044022B /* ScriptChunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE789D701539FF320044022B /* ScriptChunk.cpp */; };
+		AE789D7E1539FF320044022B /* TerminalChunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE789D721539FF320044022B /* TerminalChunk.cpp */; };
+		AE789D7F1539FF320044022B /* Unimap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE789D741539FF320044022B /* Unimap.cpp */; };
+		AE789D801539FF320044022B /* Wad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE789D761539FF320044022B /* Wad.cpp */; };
+		AE789D811539FF320044022B /* Wadfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE789D781539FF320044022B /* Wadfile.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AE16C0280E760FA700710B6E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		AE13A90723C1051D0038E387 /* Atque.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Atque.entitlements; sourceTree = "<group>"; };
+		AE16C0220E760F4800710B6E /* atque.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = atque.icns; sourceTree = "<group>"; };
+		AE175F2E0E74BA63005BE1E9 /* Atque.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atque.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE175F310E74BA63005BE1E9 /* Atque-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Atque-Info.plist"; sourceTree = "<group>"; };
+		AE175F360E74BAAA005BE1E9 /* atque.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = atque.cpp; sourceTree = "<group>"; };
+		AE175F370E74BAAA005BE1E9 /* atque.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = atque.h; sourceTree = "<group>"; };
+		AE175F380E74BAAA005BE1E9 /* CLUTResource.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CLUTResource.cpp; sourceTree = "<group>"; };
+		AE175F390E74BAAA005BE1E9 /* CLUTResource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CLUTResource.h; sourceTree = "<group>"; };
+		AE175F3A0E74BAAA005BE1E9 /* EasyBMP.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = EasyBMP.cpp; sourceTree = "<group>"; };
+		AE175F3B0E74BAAA005BE1E9 /* EasyBMP.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = EasyBMP.h; sourceTree = "<group>"; };
+		AE175F3C0E74BAAA005BE1E9 /* EasyBMP_BMP.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = EasyBMP_BMP.h; sourceTree = "<group>"; };
+		AE175F3D0E74BAAA005BE1E9 /* EasyBMP_DataStructures.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = EasyBMP_DataStructures.h; sourceTree = "<group>"; };
+		AE175F3E0E74BAAA005BE1E9 /* EasyBMP_VariousBMPutilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = EasyBMP_VariousBMPutilities.h; sourceTree = "<group>"; };
+		AE175F3F0E74BAAA005BE1E9 /* merge.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = merge.cpp; sourceTree = "<group>"; };
+		AE175F400E74BAAA005BE1E9 /* merge.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = merge.h; sourceTree = "<group>"; };
+		AE175F410E74BAAA005BE1E9 /* PICTResource.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PICTResource.cpp; sourceTree = "<group>"; };
+		AE175F420E74BAAA005BE1E9 /* PICTResource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PICTResource.h; sourceTree = "<group>"; };
+		AE175F430E74BAAA005BE1E9 /* SndResource.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SndResource.cpp; sourceTree = "<group>"; };
+		AE175F440E74BAAA005BE1E9 /* SndResource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SndResource.h; sourceTree = "<group>"; };
+		AE175F450E74BAAA005BE1E9 /* split.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = split.cpp; sourceTree = "<group>"; };
+		AE175F460E74BAAA005BE1E9 /* split.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = split.h; sourceTree = "<group>"; };
+		AE789D691539FF320044022B /* AStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AStream.cpp; path = ferro/AStream.cpp; sourceTree = "<group>"; };
+		AE789D6A1539FF320044022B /* AStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AStream.h; path = ferro/AStream.h; sourceTree = "<group>"; };
+		AE789D6B1539FF320044022B /* cstypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cstypes.h; path = ferro/cstypes.h; sourceTree = "<group>"; };
+		AE789D6C1539FF320044022B /* macroman.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = macroman.cpp; path = ferro/macroman.cpp; sourceTree = "<group>"; };
+		AE789D6D1539FF320044022B /* macroman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = macroman.h; path = ferro/macroman.h; sourceTree = "<group>"; };
+		AE789D6E1539FF320044022B /* MapInfoChunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MapInfoChunk.cpp; path = ferro/MapInfoChunk.cpp; sourceTree = "<group>"; };
+		AE789D6F1539FF320044022B /* MapInfoChunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapInfoChunk.h; path = ferro/MapInfoChunk.h; sourceTree = "<group>"; };
+		AE789D701539FF320044022B /* ScriptChunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ScriptChunk.cpp; path = ferro/ScriptChunk.cpp; sourceTree = "<group>"; };
+		AE789D711539FF320044022B /* ScriptChunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScriptChunk.h; path = ferro/ScriptChunk.h; sourceTree = "<group>"; };
+		AE789D721539FF320044022B /* TerminalChunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TerminalChunk.cpp; path = ferro/TerminalChunk.cpp; sourceTree = "<group>"; };
+		AE789D731539FF320044022B /* TerminalChunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TerminalChunk.h; path = ferro/TerminalChunk.h; sourceTree = "<group>"; };
+		AE789D741539FF320044022B /* Unimap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Unimap.cpp; path = ferro/Unimap.cpp; sourceTree = "<group>"; };
+		AE789D751539FF320044022B /* Unimap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Unimap.h; path = ferro/Unimap.h; sourceTree = "<group>"; };
+		AE789D761539FF320044022B /* Wad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Wad.cpp; path = ferro/Wad.cpp; sourceTree = "<group>"; };
+		AE789D771539FF320044022B /* Wad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Wad.h; path = ferro/Wad.h; sourceTree = "<group>"; };
+		AE789D781539FF320044022B /* Wadfile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Wadfile.cpp; path = ferro/Wadfile.cpp; sourceTree = "<group>"; };
+		AE789D791539FF320044022B /* Wadfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Wadfile.h; path = ferro/Wadfile.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AE175F2C0E74BA63005BE1E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AE16C01D0E760F1400710B6E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AE16C0220E760F4800710B6E /* atque.icns */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		AE175F1D0E74BA52005BE1E9 = {
+			isa = PBXGroup;
+			children = (
+				AE13A90723C1051D0038E387 /* Atque.entitlements */,
+				AE789D681539FF0F0044022B /* ferro */,
+				AE175F360E74BAAA005BE1E9 /* atque.cpp */,
+				AE175F370E74BAAA005BE1E9 /* atque.h */,
+				AE175F380E74BAAA005BE1E9 /* CLUTResource.cpp */,
+				AE175F390E74BAAA005BE1E9 /* CLUTResource.h */,
+				AE175F3A0E74BAAA005BE1E9 /* EasyBMP.cpp */,
+				AE175F3B0E74BAAA005BE1E9 /* EasyBMP.h */,
+				AE175F3C0E74BAAA005BE1E9 /* EasyBMP_BMP.h */,
+				AE175F3D0E74BAAA005BE1E9 /* EasyBMP_DataStructures.h */,
+				AE175F3E0E74BAAA005BE1E9 /* EasyBMP_VariousBMPutilities.h */,
+				AE175F3F0E74BAAA005BE1E9 /* merge.cpp */,
+				AE175F400E74BAAA005BE1E9 /* merge.h */,
+				AE175F410E74BAAA005BE1E9 /* PICTResource.cpp */,
+				AE175F420E74BAAA005BE1E9 /* PICTResource.h */,
+				AE175F430E74BAAA005BE1E9 /* SndResource.cpp */,
+				AE175F440E74BAAA005BE1E9 /* SndResource.h */,
+				AE175F450E74BAAA005BE1E9 /* split.cpp */,
+				AE175F460E74BAAA005BE1E9 /* split.h */,
+				AE175F2F0E74BA63005BE1E9 /* Products */,
+				AE16C01D0E760F1400710B6E /* Resources */,
+				AE175F310E74BA63005BE1E9 /* Atque-Info.plist */,
+			);
+			sourceTree = "<group>";
+		};
+		AE175F2F0E74BA63005BE1E9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AE175F2E0E74BA63005BE1E9 /* Atque.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AE789D681539FF0F0044022B /* ferro */ = {
+			isa = PBXGroup;
+			children = (
+				AE789D691539FF320044022B /* AStream.cpp */,
+				AE789D6A1539FF320044022B /* AStream.h */,
+				AE789D6B1539FF320044022B /* cstypes.h */,
+				AE789D6C1539FF320044022B /* macroman.cpp */,
+				AE789D6D1539FF320044022B /* macroman.h */,
+				AE789D6E1539FF320044022B /* MapInfoChunk.cpp */,
+				AE789D6F1539FF320044022B /* MapInfoChunk.h */,
+				AE789D701539FF320044022B /* ScriptChunk.cpp */,
+				AE789D711539FF320044022B /* ScriptChunk.h */,
+				AE789D721539FF320044022B /* TerminalChunk.cpp */,
+				AE789D731539FF320044022B /* TerminalChunk.h */,
+				AE789D741539FF320044022B /* Unimap.cpp */,
+				AE789D751539FF320044022B /* Unimap.h */,
+				AE789D761539FF320044022B /* Wad.cpp */,
+				AE789D771539FF320044022B /* Wad.h */,
+				AE789D781539FF320044022B /* Wadfile.cpp */,
+				AE789D791539FF320044022B /* Wadfile.h */,
+			);
+			name = ferro;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AE175F2D0E74BA63005BE1E9 /* Atque */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE175F320E74BA64005BE1E9 /* Build configuration list for PBXNativeTarget "Atque" */;
+			buildPhases = (
+				AE175F2A0E74BA63005BE1E9 /* Resources */,
+				AE175F2B0E74BA63005BE1E9 /* Sources */,
+				AE175F2C0E74BA63005BE1E9 /* Frameworks */,
+				AE16C0280E760FA700710B6E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Atque;
+			productName = Atque;
+			productReference = AE175F2E0E74BA63005BE1E9 /* Atque.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AE175F1F0E74BA52005BE1E9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1130;
+			};
+			buildConfigurationList = AE175F200E74BA52005BE1E9 /* Build configuration list for PBXProject "atque" */;
+			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				de,
+				fr,
+				en,
+				ja,
+				Base,
+			);
+			mainGroup = AE175F1D0E74BA52005BE1E9;
+			productRefGroup = AE175F2F0E74BA63005BE1E9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AE175F2D0E74BA63005BE1E9 /* Atque */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AE175F2A0E74BA63005BE1E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE16C0230E760F4800710B6E /* atque.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AE175F2B0E74BA63005BE1E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE175F470E74BAAA005BE1E9 /* atque.cpp in Sources */,
+				AE175F480E74BAAA005BE1E9 /* CLUTResource.cpp in Sources */,
+				AE175F490E74BAAA005BE1E9 /* EasyBMP.cpp in Sources */,
+				AE175F4A0E74BAAA005BE1E9 /* merge.cpp in Sources */,
+				AE175F4B0E74BAAA005BE1E9 /* PICTResource.cpp in Sources */,
+				AE175F4C0E74BAAA005BE1E9 /* SndResource.cpp in Sources */,
+				AE175F4D0E74BAAA005BE1E9 /* split.cpp in Sources */,
+				AE789D7A1539FF320044022B /* AStream.cpp in Sources */,
+				AE789D7B1539FF320044022B /* macroman.cpp in Sources */,
+				AE789D7C1539FF320044022B /* MapInfoChunk.cpp in Sources */,
+				AE789D7D1539FF320044022B /* ScriptChunk.cpp in Sources */,
+				AE789D7E1539FF320044022B /* TerminalChunk.cpp in Sources */,
+				AE789D7F1539FF320044022B /* Unimap.cpp in Sources */,
+				AE789D801539FF320044022B /* Wad.cpp in Sources */,
+				AE789D811539FF320044022B /* Wadfile.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AE175F210E74BA52005BE1E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_VERSION = 4.0;
+				ONLY_ACTIVE_ARCH = YES;
+			};
+			name = Debug;
+		};
+		AE175F220E74BA52005BE1E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				COPY_PHASE_STRIP = YES;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
+			};
+			name = Release;
+		};
+		AE175F330E74BA64005BE1E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Atque.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.1.3;
+				DEVELOPMENT_TEAM = E8K89CXZE7;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					/opt/static/include,
+					$SRCROOT,
+				);
+				INFOPLIST_FILE = "Atque-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = /opt/static/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MARKETING_VERSION = 1.1.3;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-I/opt/static/lib/wx/include/osx_cocoa-unicode-static-3.1",
+					"-I/opt/static/include/wx-3.1",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D__WXMAC__",
+					"-D__WXOSX__",
+					"-D__WXOSX_COCOA__",
+					"
+",
+				);
+				OTHER_LDFLAGS = (
+					"-L/opt/static/lib",
+					"-framework",
+					IOKit,
+					"-framework",
+					Carbon,
+					"-framework",
+					Cocoa,
+					"-framework",
+					AudioToolbox,
+					"-framework",
+					System,
+					"-framework",
+					OpenGL,
+					"/opt/static/lib/libwx_osx_cocoau_xrc-3.1.a",
+					"/opt/static/lib/libwx_osx_cocoau_qa-3.1.a",
+					"/opt/static/lib/libwx_baseu_net-3.1.a",
+					"/opt/static/lib/libwx_osx_cocoau_html-3.1.a",
+					"/opt/static/lib/libwx_osx_cocoau_core-3.1.a",
+					"/opt/static/lib/libwx_baseu_xml-3.1.a",
+					"/opt/static/lib/libwx_baseu-3.1.a",
+					"-framework",
+					WebKit,
+					"-lwxtiff-3.1",
+					"-lwxjpeg-3.1",
+					"-lwxpng-3.1",
+					"-lwxregexu-3.1",
+					"-lwxscintilla-3.1",
+					"-lexpat",
+					"-lz",
+					"-framework",
+					Security,
+					"-lpthread",
+					"-liconv",
+					"-lsndfile",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alephone.Atque;
+				PRODUCT_NAME = Atque;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		AE175F340E74BA64005BE1E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Atque.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1.1.3;
+				DEVELOPMENT_TEAM = E8K89CXZE7;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					/opt/static/include,
+					$SRCROOT,
+				);
+				INFOPLIST_FILE = "Atque-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = /opt/static/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MARKETING_VERSION = 1.1.3;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-I/opt/static/lib/wx/include/osx_cocoa-unicode-static-3.1",
+					"-I/opt/static/include/wx-3.1",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D__WXMAC__",
+					"-D__WXOSX__",
+					"-D__WXOSX_COCOA__",
+					"
+",
+				);
+				OTHER_LDFLAGS = (
+					"-L/opt/static/lib",
+					"-framework",
+					IOKit,
+					"-framework",
+					Carbon,
+					"-framework",
+					Cocoa,
+					"-framework",
+					AudioToolbox,
+					"-framework",
+					System,
+					"-framework",
+					OpenGL,
+					"/opt/static/lib/libwx_osx_cocoau_xrc-3.1.a",
+					"/opt/static/lib/libwx_osx_cocoau_qa-3.1.a",
+					"/opt/static/lib/libwx_baseu_net-3.1.a",
+					"/opt/static/lib/libwx_osx_cocoau_html-3.1.a",
+					"/opt/static/lib/libwx_osx_cocoau_core-3.1.a",
+					"/opt/static/lib/libwx_baseu_xml-3.1.a",
+					"/opt/static/lib/libwx_baseu-3.1.a",
+					"-framework",
+					WebKit,
+					"-lwxtiff-3.1",
+					"-lwxjpeg-3.1",
+					"-lwxpng-3.1",
+					"-lwxregexu-3.1",
+					"-lwxscintilla-3.1",
+					"-lexpat",
+					"-lz",
+					"-framework",
+					Security,
+					"-lpthread",
+					"-liconv",
+					"-lsndfile",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alephone.Atque;
+				PRODUCT_NAME = Atque;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AE175F200E74BA52005BE1E9 /* Build configuration list for PBXProject "atque" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE175F210E74BA52005BE1E9 /* Debug */,
+				AE175F220E74BA52005BE1E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AE175F320E74BA64005BE1E9 /* Build configuration list for PBXNativeTarget "Atque" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE175F330E74BA64005BE1E9 /* Debug */,
+				AE175F340E74BA64005BE1E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AE175F1F0E74BA52005BE1E9 /* Project object */;
+}

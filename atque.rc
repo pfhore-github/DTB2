@@ -1,0 +1,2 @@
+AppIcon ICON "atque.ico"
+#include <wx/msw/wx.rc>
