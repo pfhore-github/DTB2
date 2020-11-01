@@ -304,11 +304,10 @@ void atque::split(Resources& rsrc, const std::string& src, const std::string& de
 						const auto& g = term.groupings_[j];
 						std::string txt = "";
 						TermPage pg = { g.type_, g.permutation_, g.flags_, {} };
-						std::vector<TermRichText> lines;
 						for(unsigned int i = g.start_index_; i < g.start_index_ + g.length_;  ) {
 							if( font_iter != term.font_changes_.end() && i == font_iter->index_ ) {
 								tr.text = mac_roman_to_utf8( txt );
-								lines.push_back(tr);
+								pg.line.push_back(tr);
 								tr.color = font_iter->color_;
 								tr.b = font_iter->face_ & marathon::FontChange::kBold;
 								tr.i = font_iter->face_ & marathon::FontChange::kItalic;
@@ -317,52 +316,17 @@ void atque::split(Resources& rsrc, const std::string& src, const std::string& de
 								txt.clear();
 								continue;
 							}
-							
-
-							txt += (char)term.text_[i++];
+							if( term.text_[i] == '\r' ) {
+								i++;
+								txt += "\n";
+							} else {
+								txt += (char)term.text_[i++];
+							}
 						}
 						if( ! txt.empty() ) {
 							tr.text = mac_roman_to_utf8( txt );
-							lines.push_back( tr );
+							pg.line.push_back( tr );
 							txt.clear();
-						}
-						// split it
-						for( const auto& line : lines ) {
-							std::string now;
-							for(unsigned int i = 0; i < line.text.size(); ++i ) {
-								// CR
-								if( line.text[i] == '\r' ) {
-									TermRichText rt = line;
-									rt.text = now;
-									pg.line.push_back( rt );									
-									rt.text = "\n";
-									pg.line.push_back( rt );									
-									now.clear();
-									continue;
-								}
-								// japanease
-								if( (unsigned char)line.text[i] >= 0xe0 ) {
-									TermRichText rt = line;
-									rt.text = now;
-									pg.line.push_back( rt );
-									rt.text = line.text.substr(i, 3);
-									pg.line.push_back( rt );
-									now.clear();
-									i += 2;
-									continue;
-								}
-								if( line.text[i] == ' ' || line.text[i] == '\t' ) {
-									TermRichText rt = line;
-									rt.text = now;
-									pg.line.push_back( rt );									
-									rt.text.resize(1);
-									rt.text[0] = line.text[i];
-									pg.line.push_back( rt );									
-									now.clear();
-									continue;
-								}
-								now += line.text[i];
-							}
 						}
 						
 						switch( g.type_ ) {

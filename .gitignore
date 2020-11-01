@@ -1,0 +1,5 @@
+DTB2
+.deps/*
+*.o
+ferro/*.o
+ferro/*.a

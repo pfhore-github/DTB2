@@ -176,76 +176,55 @@ static wxColour rubiconTermColor[] = {
 	wxColour(153, 153, 204),
 };
 
-static std::pair<int, int> get_draw_size( int width,
-										  const std::vector<atque::TermRichText>& line) {
-	wxBitmap bmp(64, 64);
-	wxMemoryDC dc(bmp);
-	int x = 0, y = 0, hh = 0,ww = 0;
-	int hn = 0;
+static wxRichTextCtrl* draw_strings(wxWindow* parent, int width, int x, int y,
+									const std::vector<atque::TermRichText>& line,
+									wxTextAttrAlignment alignment = wxTEXT_ALIGNMENT_LEFT
+	) {
+	wxRichTextCtrl* ctrl = new wxRichTextCtrl(parent, 5500, wxEmptyString,
+											  wxPoint(x, y),
+											  wxSize(width, 266),
+											  wxVSCROLL | wxRE_MULTILINE | wxBORDER_NONE | wxRE_READONLY );
+	ctrl->SetBackgroundColour( *wxBLACK );
+	ctrl->BeginAlignment( alignment );
+	ctrl->BeginSuppressUndo();
+	wxFont font(10, wxFONTFAMILY_MODERN , wxFONTSTYLE_NORMAL,
+				wxFONTWEIGHT_NORMAL, false,  wxEmptyString,  wxFONTENCODING_UTF8 );
+	ctrl->SetFont( font);
 	for( const auto& text : line ) {
-		wxFont font(12, wxFONTFAMILY_MODERN ,
-					text.i ?  wxFONTSTYLE_ITALIC : wxFONTSTYLE_NORMAL,
-					text.b ? wxFONTWEIGHT_BOLD : wxFONTWEIGHT_NORMAL,
-					text.u,  wxEmptyString,  wxFONTENCODING_UTF8 );
-		dc.SetFont( font );
-		dc.SetTextForeground( termColor[text.color] );
-		wxCoord w, h;
-		if( text.text == "\n" ) {
-			dc.GetTextExtent( "_", &w, &h );
-			x = 0;
-			y += h-4;
-			hn = 0;
+		if( text.text == "" ) {
 			continue;
 		}
-		dc.GetTextExtent( text.text, &w, &h );
-		hn = h;
-		if( x + w > width ) {
-			x = w;
-			y += h-4;
-		} else {
-			x += w;
+		if( text.text == "\n" ) {
+			ctrl->Newline();
+			continue;
 		}
-		ww = std::max( ww, x );
-		hh = y + h;
-	}
-	return { ww, hh+hn};
-}
-static wxBitmap* draw_strings(int width,
-							  const std::vector<atque::TermRichText>& line) {
-	int x = 0, y = 0;
-	auto sz = get_draw_size(width, line);
-	if( sz.first <= 0 || sz.second <= 0 ) {
-		return nullptr;
-	}
-	wxBitmap* bmp = new wxBitmap(sz.first, sz.second);
-	{
-		wxMemoryDC dc(*bmp);
-		for( const auto& text : line ) {
-			wxFont font(10, wxFONTFAMILY_MODERN ,
-						text.i ?  wxFONTSTYLE_ITALIC : wxFONTSTYLE_NORMAL,
-						text.b ? wxFONTWEIGHT_BOLD : wxFONTWEIGHT_NORMAL,
-						text.u,  wxEmptyString,  wxFONTENCODING_UTF8 );
-			wxSize ph = font.GetPixelSize();
-			dc.SetFont( font );
-			dc.SetTextForeground( termColor[text.color] );
-			wxCoord w, h;
-			if( text.text == "\n" ) {
-				dc.GetTextExtent( "_", &w, &h );
-				x = 0;
-				y += h-4;
-				continue;
-			}		
-			dc.GetTextExtent( text.text, &w, &h );
-			if( x + w > width ) {
-				x = 0;
-				y += h-4;
-			}
-			dc.DrawText( text.text, x, y + ph.GetHeight() - h );
-			x += w;
+		if( text.b ) {
+			ctrl->BeginBold();
+		}
+		if( text.i ) {
+			ctrl->BeginItalic();
+		}
+		if( text.u ) {
+			ctrl->BeginUnderline();
+		}
+		ctrl->BeginTextColour(  termColor[text.color] );
+		ctrl->WriteText( text.text );
+		ctrl->EndTextColour();
+		if( text.u ) {
+			ctrl->EndUnderline();
+		}
+		if( text.i ) {
+			ctrl->EndItalic();
+		}
+		if( text.b ) {
+			ctrl->EndBold();
 		}
 	}
-	return bmp;
+	ctrl->EndAlignment();
+	ctrl->EndSuppressUndo();
+	return ctrl;
 }
+
 void TerminalViewPanel::update() { 
 	DestroyChildren();
 	TermView* parent = static_cast<TermView*>(GetParent());
@@ -265,55 +244,71 @@ void TerminalViewPanel::update() {
 		int yp = logon_pos[0] + pict->GetHeight();
 		int init_x = 9 + 320 - pict->GetWidth() / 2;
 		
-		wxBitmap* textMap = draw_strings( 640, toDraw->line );
-		if( textMap ) {
-			init_x = 9 + 320 - textMap->GetWidth() / 2;
-			wxStaticBitmap* timage = new wxStaticBitmap(this, 5001, *textMap,
-														wxPoint(init_x, yp));
-		}
-		delete textMap;
+		auto textMap = draw_strings( this, 640, 0, yp, toDraw->line, wxTEXT_ALIGNMENT_CENTER );
 	}
 	break;
 	case marathon::TerminalGrouping::kPict : {
 		auto pict = rsrc->picts[ toDraw->permutation ];
 		int x = pict->GetWidth();
-		if( toDraw->flags & marathon::TerminalGrouping::kCenterObject ) {
-			
-			wxStaticBitmap* pimage = new wxStaticBitmap(this, 5000, *pict,
-														wxPoint(72, 27));
+		if( toDraw->flags & marathon::TerminalGrouping::kCenterObject ) {			
+			new wxStaticBitmap(this, 5000, *pict, wxPoint(72, 27));
+		} else if( toDraw->flags & marathon::TerminalGrouping::kDrawObjectOnRight ) {
+			draw_strings(this, 307, 9, 27, toDraw->line );
+			new wxStaticBitmap(this, 5000, *pict, wxPoint(324, 27));			
 		} else {
-			wxStaticBitmap* pimage = new wxStaticBitmap(this, 5000, *pict,
-														wxPoint(9, 27));
-			wxBitmap* page = draw_strings(307, toDraw->line );
-			if( page ) {
-				wxScrolledCanvas* canvas = new wxScrolledCanvas(this, 999,
-																wxPoint(324, 27),
-																wxSize(327, 266),
-																wxVSCROLL);
-				canvas->SetScrollbars(20, 20, 50, 50);
-				canvas->SetVirtualSize( 307, page->GetHeight() + 10);
-				wxStaticBitmap* pimage2 = new wxStaticBitmap(canvas, 5000, *page);
-				canvas->Show();
-				delete page;
-			}
+			new wxStaticBitmap(this, 5000, *pict, wxPoint(9, 27));
+			draw_strings(this, 307, 324, 27, toDraw->line );
 		}
 		
 	}
 		break;
-	case marathon::TerminalGrouping::kInformation : {
-		wxBitmap* page = draw_strings(614, toDraw->line );
-		if( page ) {
-			wxScrolledCanvas* canvas = new wxScrolledCanvas(this, 999,
-															wxPoint(27, 27),
-															wxSize(624, 266),
-															wxVSCROLL);
-			canvas->SetScrollbars(20, 20, 50, 50);
-			canvas->SetVirtualSize( 614, page->GetHeight() + 10 );
-			wxStaticBitmap* pimage2 = new wxStaticBitmap(canvas, 5000, *page);
-			canvas->Show();
-			delete page;
+	case marathon::TerminalGrouping::kCheckpoint : {
+		char buf[128];
+		snprintf(buf, 128, "CHECKPOINT #%d", toDraw->permutation );
+		if( toDraw->flags & marathon::TerminalGrouping::kCenterObject ) {			
+			new wxStaticText(this, 2500, buf, wxPoint( 27, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
+		} else if( toDraw->flags & marathon::TerminalGrouping::kDrawObjectOnRight ) {
+			draw_strings(this, 307, 9, 27, toDraw->line );
+			new wxStaticText(this, 2500, buf, wxPoint( 324, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
+		} else {
+			new wxStaticText(this, 2500, buf, wxPoint( 9, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
+			draw_strings(this, 307, 324, 27, toDraw->line );
 		}
 		
+	}
+		break;
+	case marathon::TerminalGrouping::kInformation : 
+		draw_strings(this, 614, 27, 27, toDraw->line );
+		break;
+	case marathon::TerminalGrouping::kSound : {
+		char buf[128];
+		snprintf(buf, 128, "SOUND #%d", toDraw->permutation );
+		draw_strings(this, 614, 27, 47, toDraw->line );
+		break;
+	}
+	case marathon::TerminalGrouping::kIntralevelTeleport : {
+		char buf[128];
+		snprintf(buf, 128, "TELEPORT TO polygon %d", toDraw->permutation );
+		new wxStaticText(this, 2500, buf, wxPoint( 27, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
+		break;
+	}
+	case marathon::TerminalGrouping::kInterlevelTeleport : {
+		std::string name = parent->rsrc->levels[ toDraw->permutation ].name;
+		name = "TELEPORT TO " + name;
+		new wxStaticText(this, 2500, name, wxPoint( 27, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
+		break;
+	}
+	case marathon::TerminalGrouping::kStatic : {
+		char buf[128];
+		snprintf(buf, 128, "STATIC EFFECT in %d", toDraw->permutation );
+		new wxStaticText(this, 2500, buf, wxPoint( 27, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
+		break;
+	}
+	case marathon::TerminalGrouping::kTag: {
+		char buf[64];
+		snprintf(buf, 64, "TAG %d", toDraw->permutation );
+		new wxStaticText(this, 2500, buf, wxPoint( 27, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
+		break;
 	}
 
 	}
