@@ -42,7 +42,7 @@ public:
 class TerminalPageSlider : public wxSlider {
 public:
 	 TerminalPageSlider (wxWindow* parent)
-		 :wxSlider(parent, 2500, 0, 0, 0, wxDefaultPosition, wxSize(640, 20)) {}
+		 :wxSlider(parent, 2500, 0, 0, 1, wxDefaultPosition, wxSize(640, 20)) {}
 	const atque::TermPage* selected();
 	void onScroll(wxScrollEvent& event);
 	DECLARE_EVENT_TABLE();

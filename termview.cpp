@@ -158,7 +158,6 @@ void TerminalPageSlider::onScroll(wxScrollEvent& event) {
 	parent->tPanel->update();
 }
 
-int logon_pos[] = { 27, 9, 293, 631 };
 static const wxColour termColor[] = {
 	wxColour(0, 255, 0),
 	wxColour(255, 255, 255),
@@ -193,10 +192,10 @@ static wxRichTextCtrl* draw_strings(wxWindow* parent, int width, int x, int y,
 	ctrl->BeginAlignment( alignment );
 	ctrl->BeginSuppressUndo();
 	wxFont font(10, wxFONTFAMILY_MODERN , wxFONTSTYLE_NORMAL,
-				wxFONTWEIGHT_NORMAL, false,  wxEmptyString,  wxFONTENCODING_UTF8 );
+				wxFONTWEIGHT_NORMAL, false,  wxEmptyString );
 	ctrl->SetFont( font);
 	for( const auto& text : line ) {
-		if( text.text == "" ) {
+		if( text.text.empty() ) {
 			continue;
 		}
 		if( text.text == "\n" ) {
@@ -217,7 +216,7 @@ static wxRichTextCtrl* draw_strings(wxWindow* parent, int width, int x, int y,
 		} else {
 			ctrl->BeginTextColour(  termColor[text.color] );
 		}
-		ctrl->WriteText( text.text );
+		ctrl->WriteText( wxString::FromUTF8( text.text.c_str() ) );
 		ctrl->EndTextColour();
 		if( text.u ) {
 			ctrl->EndUnderline();
@@ -247,25 +246,42 @@ void TerminalViewPanel::update() {
 	case marathon::TerminalGrouping::kLogoff :
 	{
 		auto pict = rsrc->picts[ toDraw->permutation ];
-		int x = pict->GetWidth();
-		wxStaticBitmap* pimage = new wxStaticBitmap(this, 5000, *pict,
-													wxPoint(logon_pos[1] + (logon_pos[3]-logon_pos[1])/2-x/2, logon_pos[0]));
-		int yp = logon_pos[0] + pict->GetHeight();
-		int init_x = 9 + 320 - pict->GetWidth() / 2;
-		
+		int yp = 32;
+		if( pict ) {
+			int x = pict->GetWidth();
+			wxStaticBitmap* pimage = new wxStaticBitmap(this, 5000, *pict, wxPoint(320-x/2, 27));
+			yp = 27 + pict->GetHeight();
+		} else {
+			char buf[64];
+			snprintf(buf, 64, "#LOGON/LOGOFF %d", toDraw->permutation);
+			new wxStaticText(this, 5000, buf, wxPoint( 0, 60 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);			
+		}
 		auto textMap = draw_strings( this, 640, 0, yp, toDraw->line, wxTEXT_ALIGNMENT_CENTER );
 	}
 	break;
 	case marathon::TerminalGrouping::kPict : {
+		char buf[64];
+		snprintf(buf, 64, "#PICT %d", toDraw->permutation);
 		auto pict = rsrc->picts[ toDraw->permutation ];
-		int x = pict->GetWidth();
-		if( toDraw->flags & marathon::TerminalGrouping::kCenterObject ) {			
-			new wxStaticBitmap(this, 5000, *pict, wxPoint(72, 27));
+		if( toDraw->flags & marathon::TerminalGrouping::kCenterObject ) {
+			if( pict ) {
+				new wxStaticBitmap(this, 5000, *pict, wxPoint(72, 27));
+			} else {
+				new wxStaticText(this, 5000, buf, wxPoint(72, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);			
+			}
 		} else if( toDraw->flags & marathon::TerminalGrouping::kDrawObjectOnRight ) {
 			draw_strings(this, 307, 9, 27, toDraw->line );
-			new wxStaticBitmap(this, 5000, *pict, wxPoint(324, 27));			
+			if( pict ) {
+				new wxStaticBitmap(this, 5000, *pict, wxPoint(324, 27));
+			} else {
+				new wxStaticText(this, 5000, buf, wxPoint(324, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);			
+			}
 		} else {
-			new wxStaticBitmap(this, 5000, *pict, wxPoint(9, 27));
+			if( pict ) {
+				new wxStaticBitmap(this, 5000, *pict, wxPoint(9, 27));
+			} else {
+				new wxStaticText(this, 5000, buf, wxPoint(9, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);			
+			}
 			draw_strings(this, 307, 324, 27, toDraw->line );
 		}
 		
