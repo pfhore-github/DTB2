@@ -35,6 +35,8 @@ class TerminalRubiconChkbox : public wxCheckBox {
 public:
 	TerminalRubiconChkbox(wxWindow* parent)
 		:wxCheckBox(parent, 2000, "use Rubicon colors") {}
+	void onClick(wxCommandEvent& event);
+	DECLARE_EVENT_TABLE();
 };
 
 class TerminalPageSlider : public wxSlider {

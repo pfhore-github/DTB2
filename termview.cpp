@@ -8,7 +8,6 @@
 #include <wx/wx.h>
 #include <wx/richtext/richtextbuffer.h>
 #include <wx/richtext/richtextctrl.h>
-bool use_rubicon = false;
 LevelSelector::	LevelSelector(wxWindow* parent, atque::Resources* rsrc, const std::vector<wxString>& levels)
 	:wxChoice( parent, 1, wxDefaultPosition, wxDefaultSize,
 			   levels.size(), levels.data()),
@@ -79,6 +78,11 @@ void LevelSelector::OnSelect(wxCommandEvent &event) {
 		parent->itemSelector->update( p->pages.size());
 		parent->termGrpRadio->update(p->pages[0]);
 	}
+	parent->tPanel->update();
+}
+
+void  TerminalRubiconChkbox::onClick(wxCommandEvent &event) {
+	TermView* parent = static_cast<TermView*>(GetParent());
 	parent->tPanel->update();
 }
 
@@ -184,6 +188,7 @@ static wxRichTextCtrl* draw_strings(wxWindow* parent, int width, int x, int y,
 											  wxPoint(x, y),
 											  wxSize(width, 266),
 											  wxVSCROLL | wxRE_MULTILINE | wxBORDER_NONE | wxRE_READONLY );
+	TermView* root = static_cast<TermView*>(parent->GetParent());
 	ctrl->SetBackgroundColour( *wxBLACK );
 	ctrl->BeginAlignment( alignment );
 	ctrl->BeginSuppressUndo();
@@ -207,7 +212,11 @@ static wxRichTextCtrl* draw_strings(wxWindow* parent, int width, int x, int y,
 		if( text.u ) {
 			ctrl->BeginUnderline();
 		}
-		ctrl->BeginTextColour(  termColor[text.color] );
+		if( root->rubiconCheckbox->GetValue() ) {
+			ctrl->BeginTextColour(  rubiconTermColor[text.color] );
+		} else {
+			ctrl->BeginTextColour(  termColor[text.color] );
+		}
 		ctrl->WriteText( text.text );
 		ctrl->EndTextColour();
 		if( text.u ) {
@@ -334,4 +343,8 @@ EVT_SCROLL(TerminalPageSlider::onScroll)
 END_EVENT_TABLE();
 
 BEGIN_EVENT_TABLE( TerminalViewPanel, wxPanel)
+END_EVENT_TABLE();
+
+BEGIN_EVENT_TABLE( TerminalRubiconChkbox, wxCheckBox)
+EVT_CHECKBOX(2000, TerminalRubiconChkbox::onClick)
 END_EVENT_TABLE();

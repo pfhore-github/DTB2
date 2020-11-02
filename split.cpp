@@ -281,7 +281,7 @@ void atque::split(Resources& rsrc, const std::string& src, const std::string& de
 				marathon::MapInfo minf(wad.GetChunk(marathon::MapInfo::kTag));
 				
 				lv.num = *it;
-				lv.name = wadfile.GetLevelName(*it);
+				lv.name = mac_roman_to_utf8( wadfile.GetLevelName(*it) );
 				marathon::TerminalChunk terminals;
 				SaveTerminal(terminals, wad);
 				for( auto& term : terminals.terminal_texts_ ) {
