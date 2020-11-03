@@ -20,7 +20,7 @@ const atque::Levels* LevelSelector::selected() {
 	if( levelId == wxNOT_FOUND ) {
 		return nullptr;
 	}
-	return &rsrc->levels[ levelId ];
+	return &rsrc->levels.at( levelId );
 }
 TerminalGroupSelector::TerminalGroupSelector(wxWindow* parent)
 	:wxSpinCtrl( parent, 100 ) {
@@ -29,10 +29,10 @@ TerminalGroupSelector::TerminalGroupSelector(wxWindow* parent)
 const std::array<std::vector<atque::TermPage>, 3>* TerminalGroupSelector::selected() {
 	TermView* parent = static_cast<TermView*>(GetParent());
 	auto p = parent->ls->selected();
-	if( ! p ) {
+	if( ! p || GetValue() >= p->pages.size() ) {
 		return nullptr;
 	}
-	return &p->pages[ GetValue() ];	
+	return  &p->pages[ GetValue() ];	
 }
 
 
@@ -129,7 +129,7 @@ TermView::~TermView() {
 const std::vector<atque::TermPage>* TerminalGrpRadio::selected() {
 	TermView* parent = static_cast<TermView*>(GetParent());
 	auto p = parent->itemSelector->selected();
-	if( ! p ) {
+	if( ! p || GetSelection() >= p->size() ) {
 		return nullptr;
 	}
 	return &(*p)[ GetSelection() ];
@@ -198,10 +198,6 @@ static wxRichTextCtrl* draw_strings(wxWindow* parent, int width, int x, int y,
 		if( text.text.empty() ) {
 			continue;
 		}
-		if( text.text == "\n" ) {
-			ctrl->Newline();
-			continue;
-		}
 		if( text.b ) {
 			ctrl->BeginBold();
 		}
@@ -245,7 +241,7 @@ void TerminalViewPanel::update() {
 	case marathon::TerminalGrouping::kLogon :
 	case marathon::TerminalGrouping::kLogoff :
 	{
-		auto pict = rsrc->picts[ toDraw->permutation ];
+		auto pict = rsrc->picts[ toDraw->permutation ]->image.get();
 		int yp = 32;
 		if( pict ) {
 			int x = pict->GetWidth();
@@ -265,20 +261,20 @@ void TerminalViewPanel::update() {
 		auto pict = rsrc->picts[ toDraw->permutation ];
 		if( toDraw->flags & marathon::TerminalGrouping::kCenterObject ) {
 			if( pict ) {
-				new wxStaticBitmap(this, 5000, *pict, wxPoint(72, 27));
+				new wxStaticBitmap(this, 5000, *pict->image, wxPoint(72, 27));
 			} else {
 				new wxStaticText(this, 5000, buf, wxPoint(72, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);			
 			}
 		} else if( toDraw->flags & marathon::TerminalGrouping::kDrawObjectOnRight ) {
 			draw_strings(this, 307, 9, 27, toDraw->line );
 			if( pict ) {
-				new wxStaticBitmap(this, 5000, *pict, wxPoint(324, 27));
+				new wxStaticBitmap(this, 5000, *pict->image, wxPoint(324, 27));
 			} else {
 				new wxStaticText(this, 5000, buf, wxPoint(324, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);			
 			}
 		} else {
 			if( pict ) {
-				new wxStaticBitmap(this, 5000, *pict, wxPoint(9, 27));
+				new wxStaticBitmap(this, 5000, *pict->image, wxPoint(9, 27));
 			} else {
 				new wxStaticText(this, 5000, buf, wxPoint(9, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);			
 			}

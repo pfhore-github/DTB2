@@ -27,7 +27,9 @@
 #include <stdexcept>
 #include <vector>
 #include <memory>
-class wxBitmap;
+#include <wx/bitmap.h>
+
+class wxDC;
 class AIStreamBE;
 class AOStreamBE;
 class AOStreamLE;
@@ -42,10 +44,12 @@ namespace atque
 		PICTResource(const std::vector<uint8>& data) { Load(data); }
 		void Load(const std::vector<uint8>&);
 		bool LoadRaw(const std::vector<uint8>& raw_data, const std::vector<uint8>& clut);
-		std::shared_ptr<wxBitmap> ToWxImage();
+		std::unique_ptr<wxBitmap> image;
+		bool is_cinemascope;
+		int real_width;
+		int real_height;
 
-
-		bool IsUnparsed() { return bitmap_.TellHeight() == 1 && bitmap_.TellWidth() == 1 && jpeg_.size() == 0; }
+		bool IsUnparsed() { return ! image; }
 		std::string WhyUnparsed() { return why_unparsed_; }
 
 		struct Rect
@@ -67,11 +71,8 @@ namespace atque
 		};
 
 	private:
-		void LoadCopyBits(AIStreamBE& stream, bool packed, bool clipped);
+		void LoadCopyBits(AIStreamBE& stream, bool packed, bool clipped, wxDC& dc);
 		void LoadJPEG(AIStreamBE& stream);
-		std::vector<uint8> SaveJPEG() const;
-		std::vector<uint8> SaveBMP() const;
-		BMP bitmap_;
 
 		class ParseError : public std::runtime_error
 		{
@@ -131,8 +132,6 @@ namespace atque
 			void Save(AOStreamLE&) const;
 		};
 
-		std::vector<uint8> data_;
-		std::vector<uint8> jpeg_;
 
 		std::string why_unparsed_;
 	};

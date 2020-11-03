@@ -284,13 +284,13 @@ BOOST_LDFLAGS = -L/usr/lib/x86_64-linux-gnu
 BOOST_LOCALE_LIB = -lboost_locale
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O2 -pthread
+CFLAGS = -g -pthread -fsanitize=memory
 CPP = gcc -E
 CPPFLAGS =  -I/usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -I/usr/include/wx-3.0 -D_FILE_OFFSET_BITS=64 -DWXUSINGDLL -D__WXGTK__
 CXX = g++
 CXXCPP = g++ -E
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -g -O0 
+CXXFLAGS = -g -pthread -O2
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps

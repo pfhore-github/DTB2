@@ -27,6 +27,7 @@
 #include <unordered_map>
 #include <wx/bitmap.h>
 #include "ferro/TerminalChunk.h"
+#include "PICTResource.h"
 namespace atque 
 {
 struct TermRichText {
@@ -47,7 +48,7 @@ struct Levels {
 
 };
 struct Resources {
-	std::unordered_map<unsigned short, std::shared_ptr<wxBitmap>> picts;
+	std::unordered_map<unsigned short, std::shared_ptr<atque::PICTResource>> picts;
 	std::unordered_map<unsigned short, std::string> texts;
 	std::vector<Levels> levels;
 };

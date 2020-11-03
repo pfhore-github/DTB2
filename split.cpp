@@ -304,7 +304,7 @@ void atque::split(Resources& rsrc, const std::string& src, const std::string& de
 						const auto& g = term.groupings_[j];
 						std::string txt = "";
 						TermPage pg = { g.type_, g.permutation_, g.flags_, {} };
-						for(unsigned int i = g.start_index_; i < g.start_index_ + g.length_;  ) {
+						for(unsigned int i = g.start_index_; i < term.text_.size() && i < g.start_index_ + g.length_;  ) {
 							if( font_iter != term.font_changes_.end() && i == font_iter->index_ ) {
 								tr.text = mac_roman_to_utf8( txt );
 								pg.line.push_back(tr);
@@ -316,6 +316,7 @@ void atque::split(Resources& rsrc, const std::string& src, const std::string& de
 								txt.clear();
 								continue;
 							}
+							
 							if( term.text_[i] == '\r' ) {
 								i++;
 								txt += "\n";
@@ -365,18 +366,18 @@ void atque::split(Resources& rsrc, const std::string& src, const std::string& de
 
 		if (it->first == FOUR_CHARS_TO_INT('P','I','C','T') || it->first == FOUR_CHARS_TO_INT('p','i','c','t'))
 		{
-			PICTResource pict;
+			auto pict = std::make_shared<PICTResource>();
 			if (it->first == FOUR_CHARS_TO_INT('P','I','C','T'))
 			{
-				pict.Load(wadfile.GetResource(*it));
+				pict->Load(wadfile.GetResource(*it));
 			}
 			else
 			{
-				pict.LoadRaw(wadfile.GetResource(*it), wadfile.GetResource(marathon::Unimap::ResourceIdentifier(FOUR_CHARS_TO_INT('c','l','u','t'), it->second)));
+				pict->LoadRaw(wadfile.GetResource(*it), wadfile.GetResource(marathon::Unimap::ResourceIdentifier(FOUR_CHARS_TO_INT('c','l','u','t'), it->second)));
 			}
 
-			if (! pict.IsUnparsed()) {
-				rsrc.picts[ it->second ] = std::make_shared<wxBitmap>( *pict.ToWxImage() );
+			if (! pict->IsUnparsed()) {
+				rsrc.picts[ it->second ] = pict;
 			}
 
 		}
