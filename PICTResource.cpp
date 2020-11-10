@@ -380,8 +380,18 @@ void PICTResource::LoadCopyBits(AIStreamBE& stream, bool packed, bool clipped, w
 			{
 				scan_line = UnpackRow<uint8>(stream, row_bytes);
 			}
-
-			if (pixel_size == 8)
+			if( pixel_size == 1) {
+				for (int x = 0; x < src_rect.right - src_rect.left; ++x)
+				{
+					if( scan_line[x] ) {
+						dc.SetPen( wxColor(255,255,255,255) );
+					} else {
+						dc.SetPen( wxColor(0,0,0,0) );
+					}
+					dc.DrawPoint(dst_rect.left + x, dst_rect.top + y);
+				}
+			} 
+			else if (pixel_size == 8)
 			{
 				for (int x = 0; x < src_rect.right - src_rect.left; ++x)
 				{
@@ -527,10 +537,17 @@ void PICTResource::LoadJPEG(AIStreamBE& stream)
 	stream >> data_size;
 	stream.ignore(38); // frameCount/name/depth/clutID
 
-//	jpeg_.resize(data_size);
-//	stream.read(&jpeg_[0], jpeg_.size());
-	
+	std::vector<char> buf(data_size);
+	stream.read(buf.data(), buf.size());
 	stream.ignore(opcode_start + opcode_size - stream.tellg());
+
+	wxMemoryInputStream mis(buf.data(), buf.size());
+	wxImage theBitmap;
+	if (!theBitmap.LoadFile(mis, wxBITMAP_TYPE_JPEG))
+		return;
+
+	image = std::make_unique<wxBitmap>(theBitmap);
+	
 }
 
 template <class T>

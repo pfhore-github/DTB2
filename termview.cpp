@@ -261,6 +261,7 @@ void TerminalViewPanel::update() {
 		auto pict = rsrc->picts[ toDraw->permutation ];
 		if( toDraw->flags & marathon::TerminalGrouping::kCenterObject ) {
 			if( pict ) {
+//				auto img = pict->CovertToImage();
 				new wxStaticBitmap(this, 5000, *pict->image, wxPoint(72, 27));
 			} else {
 				new wxStaticText(this, 5000, buf, wxPoint(72, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);			
@@ -274,7 +275,17 @@ void TerminalViewPanel::update() {
 			}
 		} else {
 			if( pict ) {
-				new wxStaticBitmap(this, 5000, *pict->image, wxPoint(9, 27));
+				auto img = pict->image->ConvertToImage();
+				if( img.GetWidth() > 306 || img.GetHeight() > 266 ) {
+					// rescale
+					double scale = std::max(img.GetWidth() / 306.0, img.GetHeight() / 266.0);
+					img.Rescale( img.GetWidth() / scale, img.GetHeight() / scale );
+				}
+				// centering
+				wxPoint pos = wxPoint(9, 27);
+				pos.x += (306-img.GetWidth())/2;
+				pos.y += (266-img.GetHeight())/2;
+				new wxStaticBitmap(this, 5000, wxBitmap( img ), pos);
 			} else {
 				new wxStaticText(this, 5000, buf, wxPoint(9, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);			
 			}
