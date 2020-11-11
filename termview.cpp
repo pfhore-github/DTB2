@@ -8,6 +8,55 @@
 #include <wx/wx.h>
 #include <wx/richtext/richtextbuffer.h>
 #include <wx/richtext/richtextctrl.h>
+
+class wxImagePanel : public wxPanel
+{
+	wxBitmap image;
+    
+public:
+	wxImagePanel(wxWindow* parent, const wxBitmap& bmp,
+				 wxWindowID id=wxID_ANY, const wxPoint &pos=wxDefaultPosition);
+    
+	void paintEvent(wxPaintEvent & evt);
+	void paintNow();
+    
+	void render(wxDC& dc);
+        
+	DECLARE_EVENT_TABLE()
+};
+
+
+BEGIN_EVENT_TABLE(wxImagePanel, wxPanel)
+
+// catch paint events
+EVT_PAINT(wxImagePanel::paintEvent)
+
+END_EVENT_TABLE()
+
+
+wxImagePanel::wxImagePanel(wxWindow* parent, const wxBitmap& img,  wxWindowID id, const wxPoint &pos)
+:wxPanel(parent, id, pos, wxSize(img.GetWidth(), img.GetHeight())), image(img)
+{}
+
+void wxImagePanel::paintEvent(wxPaintEvent & evt)
+{
+    wxPaintDC dc(this);
+    render(dc);
+}
+
+void wxImagePanel::paintNow()
+{
+    wxClientDC dc(this);
+    render(dc);
+}
+
+void wxImagePanel::render(wxDC&  dc)
+{
+    dc.DrawBitmap( image, 0, 0, false );
+}
+
+
+
 LevelSelector::	LevelSelector(wxWindow* parent, atque::Resources* rsrc, const std::vector<wxString>& levels)
 	:wxChoice( parent, 1, wxDefaultPosition, wxDefaultSize,
 			   levels.size(), levels.data()),
@@ -67,6 +116,7 @@ void TerminalGrpRadio::update(const std::array<std::vector<atque::TermPage>, 3>&
 	if( selected != -1 ) {
 		SetSelection(selected);
 		parent->pageBar->SetMax( gp[selected].size() - 1 );
+		parent->pageBar->SetValue( 0 );
 	}
 }
 void LevelSelector::OnSelect(wxCommandEvent &event) {
@@ -261,15 +311,25 @@ void TerminalViewPanel::update() {
 		auto pict = rsrc->picts[ toDraw->permutation ];
 		if( toDraw->flags & marathon::TerminalGrouping::kCenterObject ) {
 			if( pict ) {
-//				auto img = pict->CovertToImage();
-				new wxStaticBitmap(this, 5000, *pict->image, wxPoint(72, 27));
+				auto img = pict->image->ConvertToImage();
+				new wxImagePanel(this, wxBitmap( img ), 5000,  wxPoint(52, 27));
 			} else {
-				new wxStaticText(this, 5000, buf, wxPoint(72, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);			
+				new wxStaticText(this, 5000, buf, wxPoint(52, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);			
 			}
 		} else if( toDraw->flags & marathon::TerminalGrouping::kDrawObjectOnRight ) {
 			draw_strings(this, 307, 9, 27, toDraw->line );
 			if( pict ) {
-				new wxStaticBitmap(this, 5000, *pict->image, wxPoint(324, 27));
+				auto img = pict->image->ConvertToImage();
+				if( img.GetWidth() > 306 || img.GetHeight() > 266 ) {
+					// rescale
+					double scale = std::max(img.GetWidth() / 306.0, img.GetHeight() / 266.0);
+					img.Rescale( img.GetWidth() / scale, img.GetHeight() / scale );
+				}
+				// centering
+				wxPoint pos = wxPoint(324, 27);
+				pos.x += (306-img.GetWidth())/2;
+				pos.y += (266-img.GetHeight())/2;
+				new wxImagePanel(this, wxBitmap( img ), 5000,  pos);
 			} else {
 				new wxStaticText(this, 5000, buf, wxPoint(324, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);			
 			}
@@ -285,7 +345,7 @@ void TerminalViewPanel::update() {
 				wxPoint pos = wxPoint(9, 27);
 				pos.x += (306-img.GetWidth())/2;
 				pos.y += (266-img.GetHeight())/2;
-				new wxStaticBitmap(this, 5000, wxBitmap( img ), pos);
+				new wxImagePanel(this, wxBitmap( img ), 5000,  pos);
 			} else {
 				new wxStaticText(this, 5000, buf, wxPoint(9, 27 ), wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);			
 			}
